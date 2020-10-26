@@ -166,6 +166,9 @@
     <Content Include="fonts\AurebeshEnglishRegular-rjeO.ttf" />
     <Content Include="fonts\Mandalore-K77lD.otf" />
     <Content Include="fonts\MandaloreHalftone-OVVBA.otf" />
+    <None Include="Properties\PublishProfiles\SWLoanCalculator - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\SWLoanCalculator - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\SWLoanCalculator - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

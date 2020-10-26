@@ -30,10 +30,6 @@ namespace SWAPI_Loan_Calculator
                       "~/Content/bootstrap.css",
                       "~/Content/styles.css",
                       "~/Content/site.css"));
-            bundles.Add(new StyleBundle("~/fonts").Include(
-                      "~/fonts/AurebeshAfCanon-K7Ope.otf",
-                      "~/fonts/AurebeshEnglishRegular-rjeO.ttf",
-                      "~/fonts/site.css"));
         }
     }
 }
