@@ -1,0 +1,152 @@
+﻿@model SWAPI_Loan_Calculator.Models.StarshipLoanDetailViewModel
+@{
+    ViewBag.Title = Model.swStarship.Name;
+}
+
+<div class="futuristic-container">
+    <div class="container-fluid">
+        <div>
+            <div class="item-title row text-center ">@Model.swStarship.Name</div>
+            <div class="row text-center position">
+                <img src=@Model.swStarship.ImageURL class="asset-puck" />
+            </div>
+            <div class="item-title text-center"> R @Model.swStarship.CostInCredits.ToString("n0")</div>
+        </div>
+
+        <div class="item-details-minor center-block">
+            </br> </br>
+            name: @Model.swStarship.Name<br />
+            model: @Model.swStarship.Model</br>
+            manufacturer: @Model.swStarship.Manufacturer</br>
+            length: @Model.swStarship.Length</br>
+            max atmosphering speed : @Model.swStarship.MaxAtmospheringSpeed
+        </div>
+    </div>
+</div>
+
+
+<div class="futuristic-container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 center-block">
+
+                @using (Html.BeginForm("Loan", "Starship"))
+                {
+                    <div class="form-horizontal">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                        <div class="form-group">
+                            <span class="label">Loan Amount</span>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.LoanAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LoanAmount, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span class="label">Terms (In Months)</span>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.TermsInMonths, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TermsInMonths, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span class="label">Interest Rate (%)</span>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.InterestRate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.InterestRate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input type="submit" value="Calculate" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="col-xs-12 col-sm-6 center-block">
+                <div class="container-fluid">
+                    <div class="row center-block" style="font-family:mando; font-size: 30px; letter-spacing: 2px;">
+                        <br />
+                        Monthly Payments @Model.LoanDetails.MonthlyPayment.ToString("N2")
+                        <br /><br />
+                        Total Principal  @Model.LoanDetails.TotalPrincipal.ToString("N2")</br>
+                        Total Interest   @Model.LoanDetails.TotalInterest.ToString("N2")</br>
+                        Total Cost       @{ decimal TotalCost = (Model.LoanDetails.TotalInterest + Model.LoanDetails.TotalPrincipal); TotalCost.ToString("n0");} @TotalCost.ToString("N2")
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<table class="table" style="color: white; background-color: black;">
+    <tr>
+        <th>
+            Month No.
+        </th>
+        <th>
+            Monthly Payment
+        </th>
+        <th>
+            Principal
+        </th>
+        <th>
+            Interest
+        </th>
+        <th>
+            Total Interest
+        </th>
+        <th>
+            Ending Balance
+        </th>
+    </tr>
+
+    @foreach (SWAPI_Loan_Calculator.Models.MonthlyBreakdown monthDetail in Model.LoanDetails.TotalLoanDetailsByMonth)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => monthDetail.MonthNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => monthDetail.MonthlyPayment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => monthDetail.PeriodPrincipal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => monthDetail.PeriodInterest)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => monthDetail.TotalInterestToDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => monthDetail.EndingBalance)
+            </td>
+
+        </tr>
+    }
+
+</table>
+

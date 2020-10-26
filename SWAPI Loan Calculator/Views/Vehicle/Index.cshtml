@@ -1,0 +1,33 @@
+﻿@model SWAPI_Loan_Calculator.Models.SelectionViewModel
+@{
+    ViewBag.Title = "Vehicles";
+}
+
+
+<div class="row">
+    @{
+        foreach (var swVehicle in Model.SwVehicles)
+        {
+            <div class="col-xs-12">
+                <a href="@Url.Action("Detail", "Vehicle", new { id = @swVehicle.Id }, null)">
+                    <div class="futuristic-container item-card-select">
+                        <div class="row item-details">
+                            Name: @swVehicle.Name
+                        </div>
+                        <div class="row item-details-minor">
+                            Model: @swVehicle.Model
+                        </div>
+                        <div class="row item-details-minor">
+                            Manufacturer: @swVehicle.Manufacturer
+                        </div>
+                    </div>
+
+                </a>
+            </div>
+        }
+
+    }
+
+
+</div>
+
